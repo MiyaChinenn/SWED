@@ -12,9 +12,8 @@ public class UlamFunctionTest {
         System.out.println("Success: All numbers from 1 to 999,999 terminate at 1.");
     }
 
-    // Simulates the Ulam/Collatz process
     public static boolean collatzTerminatesAtOne(int n) {
-        long current = n; // use long to avoid integer overflow
+        long current = n;
 
         while (current != 1) {
             if (current % 2 == 0) {
@@ -24,6 +23,6 @@ public class UlamFunctionTest {
             }
         }
 
-        return true; // if loop exits, it reached 1
+        return true;
     }
 }
