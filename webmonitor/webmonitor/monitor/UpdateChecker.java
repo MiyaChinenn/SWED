@@ -1,27 +1,19 @@
 package webmonitor.monitor;
 
+import java.io.*;
+import java.net.*;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-/**
- * Checks for website updates by comparing content.
- */
 public class UpdateChecker {
-    /**
-     * Fetches website content from the given URL.
-     * @param urlString The URL to fetch content from.
-     * @return The content of the website as a String.
-     */
+    // Fetches website content from the given URL.
+    // It handles HTTP connections and reads the response.
+    // If an error occurs, it returns a message indicating the error.
     public String fetchWebsiteContent(String urlString) {
         StringBuilder content = new StringBuilder();
         try {
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            conn.setRequestProperty("User-Agent", "Mozilla/5.0"); // Good practice
+            conn.setRequestProperty("User-Agent", "Mozilla/5.0"); 
 
             try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
                 String inputLine;
@@ -33,18 +25,14 @@ public class UpdateChecker {
             }
         } catch (Exception e) {
             System.err.println("Error fetching website content from " + urlString + ": " + e.getMessage());
-            // Return a distinct error marker or throw a custom exception
             return "ERROR_FETCHING_CONTENT: " + e.getMessage();
         }
         return content.toString();
     }
 
-    /**
-     * Detects changes between old and new website content.
-     * @param oldContent The previously fetched content.
-     * @param newContent The newly fetched content.
-     * @return true if changes are detected, false otherwise.
-     */
+    // Detects changes between old and new website content.
+    // It compares the two strings and returns true if they are different.
+    // If either string is null, it checks if they are not equal.
     public boolean detectChanges(String oldContent, String newContent) {
         if (oldContent == null || newContent == null) {
             return oldContent != newContent; // If one is null and other isn't, it's a change

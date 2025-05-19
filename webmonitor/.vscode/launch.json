@@ -6,6 +6,13 @@
       "name": "Main",
       "request": "launch",
       "mainClass": "webmonitor.Main",
+      "projectName": "webmonitor_f0540df9"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "webmonitor.Main",
       "projectName": "Code_febc897c"
     },
     {

@@ -1,5 +1,6 @@
 package webmonitor.observer;
 
+// This interface defines the Observer in the Observer pattern.
 public class DisplayObserver implements Observer {
     private String observerName;
 
@@ -7,11 +8,12 @@ public class DisplayObserver implements Observer {
         this.observerName = name;
     }
 
+    // This method is called when the subject notifies its observers
     @Override
-    public void update(String url, String newContent) {
-        System.out.println("[" + observerName + "] Update for URL: " + url);
+    public void update(String namePage, String newContent) {
+        System.out.println("The Observer [" + observerName + "] update for Website: " + namePage);
         if (newContent != null && !newContent.startsWith("ERROR_FETCHING_CONTENT:")) {
-            System.out.println("New content (first 100 chars): " + newContent.substring(0, Math.min(100, newContent.length())) + "...");
+            System.out.println("New content is updated for The Observer [" + observerName + "]");
         } else if (newContent != null) {
             System.out.println("Could not fetch new content: " + newContent);
         } else {
