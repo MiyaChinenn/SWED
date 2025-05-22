@@ -5,6 +5,18 @@ import webmonitor.model.*;
 import webmonitor.monitor.*;
 import webmonitor.observer.*;
 
+/**
+ * Main entry point for the WebMonitor application.
+ * Demonstrates the core functionality of the application by:
+ * 1. Creating a website monitor instance
+ * 2. Creating a user
+ * 3. Creating a subscription for Google's homepage
+ * 4. Setting up a console observer to display updates
+ * 5. Running the website monitor to check for changes
+ *
+ * This class serves as a simple demonstration of the Observer pattern
+ * where WebsiteMonitor is the Subject and DisplayObserver is the Observer.
+ */
 
 // This is the main class for the WebMonitor application.
 public class Main {

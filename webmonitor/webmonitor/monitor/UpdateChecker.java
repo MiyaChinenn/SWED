@@ -3,6 +3,17 @@ package webmonitor.monitor;
 import java.io.*;
 import java.net.*;
 
+/**
+ * Handles the technical aspects of fetching website content and detecting changes.
+ * Responsibilities:
+ * - Fetching content from websites via HTTP connections
+ * - Handling network errors and connection issues
+ * - Comparing previous and new content to detect changes
+ *
+ * This class is focused solely on the mechanics of content retrieval and comparison,
+ * without concern for how the content is stored or how changes are reported.
+ */
+
 public class UpdateChecker {
     // Fetches website content from the given URL.
     // It handles HTTP connections and reads the response.
@@ -15,6 +26,7 @@ public class UpdateChecker {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("User-Agent", "Mozilla/5.0"); 
 
+            // Set a timeout for the connection
             try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
                 String inputLine;
                 while ((inputLine = in.readLine()) != null) {

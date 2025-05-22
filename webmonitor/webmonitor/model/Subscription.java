@@ -1,6 +1,19 @@
 package webmonitor.model;
 import webmonitor.EnumType.Frequency;
 
+/**
+ * Represents a subscription to monitor a specific website.
+ * Each subscription contains:
+ * - A unique ID
+ * - The URL to monitor
+ * - Frequency of checks (MINUTELY, HOURLY, DAILY)
+ * - Notification channel preference (email, sms)
+ * - A descriptive name for the subscription
+ *
+ * This class is used by WebsiteMonitor to determine what to check
+ * and by notifiers to determine how to alert users of changes.
+ */
+
 //Represents a website subscription
 public class Subscription {
     private String subscriptionId;

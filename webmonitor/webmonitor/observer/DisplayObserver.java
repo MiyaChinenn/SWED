@@ -1,5 +1,15 @@
 package webmonitor.observer;
 
+/**
+ * Concrete implementation of the Observer interface for console display.
+ * Responsible for displaying website update information to the console
+ * when notified of changes by the Subject (WebsiteMonitor).
+ *
+ * This class demonstrates a simple observer that prints notifications
+ * but doesn't modify the system state. It represents a typical passive
+ * observer in the Observer pattern.
+ */
+
 // This interface defines the Observer in the Observer pattern.
 public class DisplayObserver implements Observer {
     private String observerName;

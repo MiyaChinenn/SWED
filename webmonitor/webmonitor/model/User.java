@@ -3,6 +3,18 @@ package webmonitor.model;
 import java.util.*;
 import webmonitor.EnumType.Frequency;
 
+/**
+ * Represents a user of the WebMonitor system.
+ * Users can create and manage website monitoring subscriptions.
+ * Each user has personal information (name, email, phone) used for notifications.
+ *
+ * Users maintain a list of their subscriptions and can:
+ * - Create new subscriptions
+ * - View all their current subscriptions
+ *
+ * This class is part of the model layer and doesn't depend on monitor or notification logic.
+ */
+
 //Represents a user who can create and manage subscriptions.
 public class User {
     private String userId;

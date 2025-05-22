@@ -8,8 +8,21 @@ import java.util.Map;
 import webmonitor.model.*;
 import webmonitor.notifier.*;
 import webmonitor.observer.*;
-import webmonitor.monitor.WebsiteContentStore; // Assuming WebsiteContentStore is in this package
-import webmonitor.monitor.DifferenceReporter; // Import for DifferenceReporter
+
+/**
+ * Core coordinator class implementing the Subject role in the Observer pattern.
+ * Responsible for:
+ * - Managing website subscriptions and their owner users
+ * - Performing website content checks using UpdateChecker
+ * - Detecting changes in website content
+ * - Notifying registered observers about changes
+ * - Sending targeted notifications to subscription owners
+ * - Storing and managing website content through WebsiteContentStore
+ * - Analyzing and reporting content differences using DifferenceReporter
+ *
+ * This class acts as the central hub connecting the monitoring, notification,
+ * and reporting components of the system.
+ */
 
 // Coordinates website monitoring and user notifications.
 // It manages subscriptions, checks for updates, and notifies users of changes.
@@ -29,16 +42,19 @@ public class WebsiteMonitor implements Subject {
         System.out.println("WebsiteMonitor: Added subscription for " + subscription.getURL());
     }
 
+    // Removes a subscription from the monitor.
     @Override
     public void attach(Observer o) {
         this.observers.add(o);
     }
 
+    // Detaches an observer from the monitor.
     @Override
     public void detach(Observer o) {
         this.observers.remove(o);
     }
 
+    // Notifies all observers about a change in website content.
     @Override
     public void notifyObservers(String namePage, String newContent) {
         for (Observer observer : this.observers) {
@@ -49,7 +65,7 @@ public class WebsiteMonitor implements Subject {
     // The showDifferences method is now removed from WebsiteMonitor.
     // Its functionality is handled by the DifferenceReporter class.
 
-//Checks all subscriptions for website updates and notifies users if changes are detected.
+// Checks all subscriptions for website updates and notifies users if changes are detected.
 // It reads the old content from a file and compares it with the new content fetched from the website.
 public void checkUpdates() {
     System.out.println("\nWebsiteMonitor: Checking for updates for ALL subscriptions...");
@@ -82,12 +98,13 @@ public void checkUpdates() {
             notifyObservers(name, newFetchedContent); // Notify general observers
 
             // Use DifferenceReporter to analyze and report differences
-            // The "Differences found:" message is now part of DifferenceReporter's output or can be kept here if desired.
             differenceReporter.analyzeAndReport(baselineContent, newFetchedContent);
 
+            // CHANGE: Only call saveCurrentSnapshot - it now handles baseline updates too
             contentStore.saveCurrentSnapshot(newFetchedContent);
-            contentStore.updateBaselineContent(newFetchedContent);
+            // REMOVE THIS LINE: contentStore.updateBaselineContent(newFetchedContent);
 
+            // Notify the specific user owner of the subscription
             User owner = subscriptionOwners.get(url);
             if (owner != null) { // Check if owner context is available
                 notifyUser(owner, sub, "Website content changed!");
@@ -99,7 +116,7 @@ public void checkUpdates() {
         }
     }
 
-    //Notifies a user based on their subscription preferences.
+    // Notifies a user based on their subscription preferences.
     public void notifyUser(User user, Subscription subscription, String message) {
         Notifier notifier;
         String recipient;
@@ -124,7 +141,7 @@ public void checkUpdates() {
     }
 
 
-    /// Run the monitor cycle
+    // Run the monitor cycle
     public void runMonitor() {
         System.out.println("\nWebsiteMonitor: runMonitor cycle started.");
         checkUpdates();
